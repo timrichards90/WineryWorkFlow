@@ -40,6 +40,12 @@ input[type="date"] {
   color: #333;
 }
 
+hr {
+  border: none;
+  border-top: 3px solid #ddd;
+  margin: 1rem 0;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .container {

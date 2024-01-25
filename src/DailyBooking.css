@@ -39,6 +39,7 @@ form div {
 input[type="date"],
 input[type="time"],
 input[type="text"],
+input[type="number"],
 select {
   font-size: 1rem;
   padding: 0.75rem;
