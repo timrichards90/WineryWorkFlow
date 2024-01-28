@@ -1,40 +1,38 @@
 import React, {useState} from 'react';
 import './DailyBooking.css';
 
-function DailyBooking({ bookingData, setBookingData }) {
+function DailyBooking({bookingData, setBookingData}) {
     const varieties = ["Basil", "Cilantro", "Dill", "Mint", "Parsley", "Rosemary", "Sage", "Thyme"];
     const growers = ["Grower 1", "Grower 2", "Grower 3", "Grower 4", "Grower 5"];
 
-    // Create state variables for form data
+    // Handle form submission
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const date = new Date(event.target.date.value.split('/').reverse().join('-'));
+        const formattedDate = date.toISOString().split('T')[0]; // Format the date as "yyyy-mm-dd"
+        const time = event.target.time.value;
+        const batchCode = event.target.batchCode.value;
+        const variety = event.target.variety.value;
+        const grower = event.target.grower.value;
+        const quantity = event.target.quantity.value;
 
-// Handle form submission
-const handleSubmit = (event) => {
-  event.preventDefault();
-  const date = new Date(event.target.date.value.split('/').reverse().join('-'));
-  const formattedDate = date.toISOString().split('T')[0]; // Format the date as "yyyy-mm-dd"
-  const time = event.target.time.value;
-  const batchCode = event.target.batchCode.value;
-  const variety = event.target.variety.value;
-  const grower = event.target.grower.value;
-  const quantity = event.target.quantity.value;
+        if (!date || !time || !batchCode || !variety || !grower) {
+            alert('Please fill in all form fields.');
+            return;
+        }
 
-  if (!date || !time || !batchCode || !variety || !grower) {
-    alert('Please fill in all form fields.');
-    return;
-  }
+        setBookingData(prevData => [...prevData, {
+            date: formattedDate,
+            time: time,
+            batchCode: batchCode,
+            variety: variety,
+            grower: grower,
+            quantity: quantity
+        }]);
 
-  setBookingData(prevData => [...prevData, {
-    date: formattedDate,
-    time: time,
-    batchCode: batchCode,
-    variety: variety,
-    grower: grower,
-    quantity: quantity
-  }]);
-
-  window.confirm("Booking successful!");
-  event.target.reset()
-};
+        window.confirm("Booking successful!");
+        event.target.reset()
+    };
 
     return (
         <div className="container">

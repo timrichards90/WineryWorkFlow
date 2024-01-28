@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
+import { useLocation } from 'react-router-dom';
 import './Crusher.css';
 
 function Crusher() {
+    const location = useLocation();
+    const { date, batchCode, variety } = location.state || {};
     const [crusherNumber, setCrusherNumber] = useState('');
     const [destem, setDestem] = useState('');
     const [rollers, setRollers] = useState('');
@@ -29,13 +32,23 @@ function Crusher() {
         <form onSubmit={handleSubmit}>
             <div className="grid-container">
             <label>
+                Date:
+                <input type="date" value={date} disabled/>
+            </label>
+            <label>
+                Batch Code:
+                <input type="text" value={batchCode} disabled/>
+            </label>
+            <label>
+                Variety:
+                <input type="text" value={variety} disabled/>
+            </label>
                 Crusher Number:
                 <select value={crusherNumber} onChange={e => setCrusherNumber(e.target.value)}>
                     <option value="">Select a crusher number</option>
                     <option value="C1">C1</option>
                     <option value="C2">C2</option>
                 </select>
-            </label>
             <label>
                 Destem:
                 <select value={destem} onChange={e => setDestem(e.target.value)}>
